@@ -12,6 +12,13 @@ u3 = User.new("Louis")
 # u1 == u2  # false
 # u1 == u3  # true
 
+# quicksort part 1
+
+def quick_sort(list)
+	# class exercise
+end
+
+
 # Monoids!
 
 module Monoid
@@ -130,3 +137,26 @@ p2 = Publication.new({'d2' => [s2]})
 p3 = Publication.new({'d2' => [s1]})
 p4 = Publication.new({'d3' => [s3]})
 p5 = Publication.new({'d2' => [s3]})
+
+# all = Monoid.fold([p1,p2,p3,p4,p5])
+
+module Enumerable
+	def minject
+		Monoid.fold(self)
+	end
+end
+
+[1,2,3,4,5].minject
+(1..5).minject
+[p1, p2, p3, p4, p5].minject
+
+## quicksort
+
+
+
+def func_quick_sort(list)
+	return list if list.length <= 1
+	h, *t = list
+	quick_sort(t.select { |i| i < h }) + [h] + quick_sort(t.select { |i| i >= h })
+end
+
