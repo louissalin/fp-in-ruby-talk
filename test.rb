@@ -307,10 +307,17 @@ end
 maybe_customer.pass do |cust|
 	cust.address.pass do |addr|
 		cust.order.pass do |order|
-			puts "about to charge..."
+			puts "ready to charge..."
 			discount = order.total > 100 ? 0 : 10
 			Maybe.pure Account.charge(order.total - discount)
 		end
 	end
 end
 
+maybe_customer.pass { |cust|
+cust.address.pass { |addr|
+cust.order.pass { |order|
+	puts "ready to charge..."
+	discount = order.total > 100 ? 0 : 10
+	Maybe.pure Account.charge(order.total - discount)
+}}}
