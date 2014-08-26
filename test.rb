@@ -321,3 +321,16 @@ cust.order.pass { |order|
 	discount = order.total > 100 ? 0 : 10
 	Maybe.pure Account.charge(order.total - discount)
 }}}
+
+# as a program
+
+charge_customer = ->(maybe_customer) {
+	maybe_customer.pass { |cust|
+	cust.address.pass { |addr|
+	cust.order.pass { |order|
+		puts "ready to charge..."
+		discount = order.total > 100 ? 0 : 10
+		Maybe.pure Account.charge(order.total - discount)
+}}}}
+
+charge_customer.(maybe_customer)
